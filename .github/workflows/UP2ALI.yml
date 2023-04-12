@@ -1,0 +1,29 @@
+name: UP2ALI
+
+on:
+  repository_dispatch:
+  workflow_dispatch:
+    inputs:
+      ALNK:
+        description: 'THIS IS A LINK！'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: github.event.repository.owner.id == github.event.sender.id
+
+    steps:
+      - name: UP2ALI
+        run: |
+          mkdir ALINK
+          IFS=";" urls="${{ github.event.inputs.ALNK }}"
+          for url in $urls; do
+              wget -q -P ALINK/ "$url"
+          done
+          zip -r ALINK.zip ALINK/
+          
+          wget "https://github.com/tickstep/aliyunpan/releases/download/v0.2.6/aliyunpan-v0.2.6-linux-amd64.zip"
+          unzip -d ~/ aliyunpan-v0.2.6-linux-amd64.zip
+          ~/aliyunpan-v0.2.6-linux-amd64/aliyunpan login -RefreshToken=${{ secrets.ALIYUN }}
+          
+          ~/aliyunpan-v0.2.6-linux-amd64/aliyunpan u ALINK.zip /
