@@ -15,7 +15,7 @@ jobs:
     steps:
       - name: SDWEBUI
         run: |
-          bash <(wget -qO- https://raw.githubusercontent.com/AUTOMATIC1111/stable-diffusion-webui/master/webui.sh)
+          bash <(wget -qO- https://raw.githubusercontent.com/AMEISKISS/stable-diffusion-webui/master/webui.sh)
           zip -r stable-diffusion-webui-$(date +%Y%m%d).zip /home/$(whoami)/stable-diffusion-webui/
           
           wget "https://github.com/tickstep/aliyunpan/releases/download/v0.2.6/aliyunpan-v0.2.6-linux-amd64.zip"
